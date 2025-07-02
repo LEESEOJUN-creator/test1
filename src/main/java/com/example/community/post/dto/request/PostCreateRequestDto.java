@@ -9,9 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostCreateRequestDto {
-    private Long id;
     private String title;
     private String content;
-
-
 }
