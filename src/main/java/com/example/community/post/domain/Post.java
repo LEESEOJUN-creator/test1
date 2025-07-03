@@ -1,5 +1,6 @@
 package com.example.community.post.domain;
 
+import com.example.community.post.dto.request.PostUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,10 @@ public class Post {
 
 
 
-
+public void update(PostUpdateRequestDto dto) {
+    this.title = dto.getTitle();
+    this.content = dto.getContent();
+}
 
 
 }

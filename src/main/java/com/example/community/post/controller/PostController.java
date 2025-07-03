@@ -31,14 +31,21 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<PostUpdateRequestDto> updatePost(@PathVariable Long postId,@RequestBody PostUpdateRequestDto dto){
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId,@RequestBody PostUpdateRequestDto dto){
 
-        PostUpdateRequestDto responsedto = postService.updatePost(postId, dto);
+        PostResponseDto responsedto = postService.updatePost(postId, dto);
         return ResponseEntity.status(HttpStatus.OK).body(responsedto);
     }
     @GetMapping()
     public ResponseEntity<List<PostResponseDto>> getAllPosts() {
+        List<PostResponseDto> responsedto=postService.getAllPosts();
+        return ResponseEntity.status(HttpStatus.OK).body(responsedto);
 
+    }
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
+        PostResponseDto responsedto=postService.getPost(postId);
+        return ResponseEntity.status(HttpStatus.OK).body(responsedto);
     }
 
 }

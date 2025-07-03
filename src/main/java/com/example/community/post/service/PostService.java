@@ -9,6 +9,9 @@ import com.example.community.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PostService {
 
@@ -27,11 +30,26 @@ public class PostService {
                 .orElseThrow(()-> new RuntimeException("post not found")); // id를 못찾으면 exception던짐
         postRepository.delete(post);
     }
-    public PostUpdateRequestDto updatePost(Long postId, PostUpdateRequestDto dto) {
+    public PostResponseDto updatePost(Long postId, PostUpdateRequestDto dto) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("post not found"));
-        post.setTitle(dto.getTitle());
-        post.setContent(dto.getContent());
-        return dto;
+        post.update(dto);
+        Post saved=postRepository.save(post);
+        return postConverter.toResponseDto(saved);
+
     }
+    public List<PostResponseDto> getAllPosts() {
+        List<Post> posts= postRepository.findAll();
+       PostResponseDto dtos;
+        return posts.stream()
+                .map(postConverter::toResponseDto)
+                .collect(Collectors.toList());
+    }
+    public PostResponseDto getPost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("post not found"));
+        return postConverter.toResponseDto(post);
+    }
+
+
 }
