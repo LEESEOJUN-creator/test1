@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Comment {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long commentId;
 
     private String content;
 }

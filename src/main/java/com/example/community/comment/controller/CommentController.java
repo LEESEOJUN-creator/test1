@@ -6,6 +6,7 @@ import com.example.community.comment.dto.resonse.CommentResponseDto;
 import com.example.community.comment.service.CommentService;
 import com.example.community.post.dto.response.PostResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,7 @@ public class CommentController {
     @PostMapping("{postId}")
     public ResponseEntity<CommentResponseDto> createComment(@RequestBody CommentCreateRequestDto dto, @PathVariable Long postId) {
         CommentResponseDto responsedto= commentService.createComment(dto,postId);
-
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(responsedto);
     }
 
 
