@@ -24,8 +24,10 @@ public class CommentService {
     public CommentResponseDto createComment(CommentCreateRequestDto dto, Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new RuntimeException("post not found"));
-        Comment comment = new Comment();
-
+        Comment comment =CommentConverter.toComment(dto);
+        comment.setPost(post);
+        Comment savedComment = commentRepository.save(comment);
+        return commentConverter.toResponseDto(savedComment);
 
     }
 }
