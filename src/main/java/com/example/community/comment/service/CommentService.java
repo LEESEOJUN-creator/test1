@@ -30,4 +30,8 @@ public class CommentService {
         return commentConverter.toResponseDto(savedComment);
 
     }
+
+    public void deleteComment(Long postId) {
+
+    }
 }

@@ -22,6 +22,12 @@ public class CommentController {
         CommentResponseDto responsedto= commentService.createComment(dto,postId);
         return ResponseEntity.status(HttpStatus.CREATED).body(responsedto);
     }
+    @DeleteMapping("{postId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long postId) {
+        commentService.deleteComment(postId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // build는 응답만 반환
+
+    }
 
 
 }
